@@ -32,6 +32,6 @@ module.exports = async () => {
     const trucks = await getTrucks(pageIndex);
     printTrucks(trucks);
   } catch (err) {
-    console.log('Error displaying page');
+    console.log('Error fetching page, check connection.');
   }
 };
