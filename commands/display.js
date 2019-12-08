@@ -1,4 +1,4 @@
-const { getPageIndex } = require('../utils/page');
+const { getPageIndex, getKnownPageLimit, setKnownPageLimit } = require('../utils/page');
 const { getTimeStamp } = require('../utils/date-time');
 const getTrucks = require('../utils/trucks');
 
@@ -7,21 +7,34 @@ const printTruck = (truck) => {
 };
 
 const printTrucks = (trucks) => {
-  if (trucks.length) {
-    console.log('\tNAME | ADDRESS\n');
-    trucks.forEach((truck) => printTruck(truck));
-  } else {
-    console.log('\tNo results for this page');
-  }
+  console.log('\tNAME | ADDRESS\n');
+  trucks.forEach((truck) => printTruck(truck));
 };
 
-module.exports = async () => {
-  try {
-    const pageIndex = getPageIndex();
-    console.log(`\nPage ${pageIndex + 1} --- ${getTimeStamp()}\n`);
+const printPageHeader = (pageIndex) => { console.log(`\nPage ${pageIndex + 1} --- ${getTimeStamp()}\n`); };
 
+const printNoResults = () => { console.log('\tNo results for this page'); };
+
+module.exports = async () => {
+  const pageIndex = getPageIndex();
+
+  printPageHeader(pageIndex);
+
+  // prevent fetches for pages outside of known range
+  if (pageIndex >= getKnownPageLimit()) {
+    printNoResults();
+    return;
+  }
+
+  try {
     const trucks = await getTrucks(pageIndex);
-    printTrucks(trucks);
+
+    if (trucks.length) {
+      printTrucks(trucks);
+    } else {
+      printNoResults();
+      setKnownPageLimit(pageIndex);
+    }
   } catch (err) {
     console.log('Error fetching page, check connection.');
   }
