@@ -1,4 +1,4 @@
-const { setPageIndex } = require('../utils/page_index');
+const { setPageIndex } = require('../utils/page');
 const display = require('./display');
 
 module.exports = (args) => {

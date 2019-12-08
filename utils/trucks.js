@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cachios = require('cachios');
 
-const { getDate } = require('./date');
+const { getDate } = require('./date-time');
 
 const PAGE_COUNT = 10;
 
