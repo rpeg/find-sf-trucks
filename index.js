@@ -5,7 +5,7 @@ const help = require('./commands/help');
 const next = require('./commands/next');
 const prev = require('./commands/previous');
 const jump = require('./commands/jump');
-const error = require('./utils/error');
+const invalid = require('./utils/invalid');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -30,7 +30,7 @@ const commands = {
 };
 
 module.exports = () => {
-  help(); // display cmd list on start
+  help();
 
   rl.on('line', (input) => {
     const inputArr = input.split(/\s+/);
@@ -41,7 +41,7 @@ module.exports = () => {
       if (cmd in commands) {
         commands[cmd](args);
       } else {
-        error();
+        invalid();
       }
     }
   });

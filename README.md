@@ -1,6 +1,6 @@
 # Instructions
 
-(Assumes `node` is installed on machine)
+(Assumes node is installed on machine)
 
-`npm i` to install dependencies
-`npm start` to lauch CLI
+- `npm i` to install dependencies
+- `npm start` to launch CLI

@@ -26,7 +26,7 @@ const printTrucks = (trucks) => {
 
 module.exports = async () => {
   try {
-    const pageIndex = getPageIndex() || 0;
+    const pageIndex = getPageIndex();
     console.log(`\nPage ${pageIndex + 1} --- ${getTimeStamp()}\n`);
 
     const trucks = await getTrucks(pageIndex);
