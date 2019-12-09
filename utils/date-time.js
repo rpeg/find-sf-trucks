@@ -7,5 +7,5 @@ exports.getTimeStamp = () => {
   const hour = date.getHours();
   const minute = `0${date.getMinutes()}`.slice(-2);
 
-  return `${dayOfWeek}, ${hour % 12}:${minute} ${hour >= 12 ? 'PM' : 'AM'}`;
+  return `${dayOfWeek}, ${hour % 12 ? hour % 12 : '12'}:${minute} ${hour >= 12 ? 'PM' : 'AM'}`;
 };
