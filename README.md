@@ -6,7 +6,7 @@ Interactive NodeJS CLI for browsing SF food trucks open at the present time. Inp
 
 (Assumes node is installed on machine)
 
-- `npm i` within parent directory to install dependencies
+- `npm i` within root to install dependencies
 - `npm start` to launch CLI
 
 # Example
