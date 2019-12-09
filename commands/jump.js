@@ -2,10 +2,10 @@ const { setPageIndex } = require('../utils/page');
 const display = require('./display');
 
 module.exports = (args) => {
-  const index = parseInt(args[0], 10) - 1;
+  const page = parseInt(args[0], 10);
 
-  if (typeof index === 'number' && index >= 0) {
-    setPageIndex(index);
+  if (typeof page === 'number' && page > 0) {
+    setPageIndex(page - 1);
     display();
   } else {
     console.log('Invalid page.');

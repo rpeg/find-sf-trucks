@@ -30,7 +30,7 @@ const commands = {
 };
 
 module.exports = () => {
-  help();
+  help(); // show command list on launch
 
   rl.on('line', (input) => {
     const inputArr = input.split(/\s+/);
