@@ -1,15 +1,16 @@
-const { setup } = require('axios-cache-adapter');
+const axios = require('axios');
+const cachios = require('cachios');
 
-const { getDate } = require('./date');
+const { getDate } = require('./date-time');
 
 const PAGE_COUNT = 10;
 
-const api = setup({
+const axiosInstance = axios.create({
   baseURL: 'https://data.sfgov.org',
+});
 
-  cache: {
-    maxAge: 24 * 60 * 60 * 1000, // one day
-  },
+const cachiosInstance = cachios.create(axiosInstance, {
+  stdTTL: 60 * 60, // persist cache results for an hour
 });
 
 module.exports = async (pageIndex) => {
@@ -18,14 +19,15 @@ module.exports = async (pageIndex) => {
   const startTimeCeiling = `'${date.getHours()}:00'`;
   const endTimeFloor = `'${date.getHours() + 1}:00'`;
 
-  const results = await api.get('/resource/jjew-r69b.json', {
+  const response = await cachiosInstance.get('/resource/jjew-r69b.json', {
     params: {
       dayorder,
       $where: `start24 between '0:00' and ${startTimeCeiling} AND end24 between ${endTimeFloor} and '24:00'`,
       $limit: PAGE_COUNT,
       $offset: pageIndex * PAGE_COUNT,
+      $order: 'applicant ASC',
     },
   });
 
-  return results.data;
+  return response.data;
 };
